@@ -9,7 +9,7 @@
 - Postman: Unknown from public docs
 - SDKs: Unknown from public docs
 - GitHub: Unknown from public docs
-- Last checked: 2026-05-27T08:18:11.352Z
+- Last checked: 2026-06-01T05:10:29.809Z
 - Docs access: public
 - Docs confidence: A
 - Notes: Good Saudi payment docs; sandbox called out.

@@ -20,7 +20,7 @@
 
 ## 0.3
 
-- Weekly Codex maintenance automation that refreshes sources, regenerates skills, runs evals, and pushes reviewable updates.
+- Maintainer-reviewed source refreshes, skill regeneration, eval reruns, and reviewable public updates.
 - More examples per vendor.
 - Contributor review dashboard.
 - Maintainer workflow for approving or rejecting submitted skills before public publication.

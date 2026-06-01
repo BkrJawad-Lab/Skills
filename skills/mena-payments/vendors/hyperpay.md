@@ -9,7 +9,7 @@
 - Postman: Unknown from public docs
 - SDKs: Unknown from public docs
 - GitHub: Unknown from public docs
-- Last checked: 2026-05-27T08:18:11.351Z
+- Last checked: 2026-06-01T05:10:29.807Z
 - Docs access: public
 - Docs confidence: A
 - Notes: Core GCC/MENA PSP.
