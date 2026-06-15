@@ -9,7 +9,7 @@
 - Postman: Unknown from public docs
 - SDKs: Unknown from public docs
 - GitHub: Unknown from public docs
-- Last checked: 2026-06-08T09:04:16.817Z
+- Last checked: 2026-06-15T09:17:00.599Z
 - Docs access: public
 - Docs confidence: A
 - Notes: Core Egypt rail; staging docs publicly visible.
