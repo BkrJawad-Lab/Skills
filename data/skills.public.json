@@ -57,7 +57,7 @@
     "evals": [
       "skills/mena-payments/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "15 registry vendors. Facts must remain source-backed."
   },
@@ -108,7 +108,7 @@
     "evals": [
       "skills/mena-bnpl/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "7 registry vendors. Facts must remain source-backed."
   },
@@ -169,7 +169,7 @@
     "evals": [
       "skills/mena-logistics/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "15 registry vendors. Facts must remain source-backed."
   },
@@ -223,7 +223,7 @@
     "evals": [
       "skills/mena-comms/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "8 registry vendors. Facts must remain source-backed."
   },
@@ -277,7 +277,7 @@
     "evals": [
       "skills/arab-einvoicing-tax/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "10 registry vendors. Facts must remain source-backed."
   },
@@ -331,7 +331,7 @@
     "evals": [
       "skills/mena-commerce-pos-accounting/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "8 registry vendors. Facts must remain source-backed."
   },
@@ -383,7 +383,7 @@
     "evals": [
       "skills/mena-open-banking/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "7 registry vendors. Facts must remain source-backed."
   },
@@ -435,7 +435,7 @@
     "evals": [
       "skills/arab-identity-gov/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "7 registry vendors. Facts must remain source-backed."
   },
@@ -486,7 +486,7 @@
     "evals": [
       "skills/mena-hr-payroll/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "5 registry vendors. Facts must remain source-backed."
   },
@@ -532,7 +532,7 @@
     "evals": [
       "skills/arabic-nlp/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "6 registry vendors. Facts must remain source-backed."
   },
@@ -588,7 +588,7 @@
     "evals": [
       "skills/arab-open-data/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "8 registry vendors. Facts must remain source-backed."
   },
@@ -639,7 +639,7 @@
     "evals": [
       "skills/arab-market-context/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -690,7 +690,7 @@
     "evals": [
       "skills/arabic-copywriting-dialects/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -741,7 +741,7 @@
     "evals": [
       "skills/mena-marketing-localization/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -792,7 +792,7 @@
     "evals": [
       "skills/mena-sales-playbooks/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -843,7 +843,7 @@
     "evals": [
       "skills/mena-product-localization/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -894,7 +894,7 @@
     "evals": [
       "skills/mena-customer-support/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -945,7 +945,7 @@
     "evals": [
       "skills/mena-cultural-calendar/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -996,7 +996,7 @@
     "evals": [
       "skills/mena-growth-channels/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -1047,7 +1047,7 @@
     "evals": [
       "skills/mena-pricing-packaging/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -1098,7 +1098,7 @@
     "evals": [
       "skills/mena-partnerships-distribution/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "14 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   },
@@ -1151,7 +1151,7 @@
     "evals": [
       "skills/seo-aeo-geo/evals/prompts.yml"
     ],
-    "last_evaluated_at": "2026-06-15T09:26:03.068Z",
+    "last_evaluated_at": "2026-06-22T05:11:55.874Z",
     "eval_score": 100,
     "notes": "16 country contexts. Regional claims must stay scoped, source-backed, and review-labeled."
   }
