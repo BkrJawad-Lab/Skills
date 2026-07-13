@@ -9,7 +9,7 @@
 - Postman: Unknown from public docs
 - SDKs: Unknown from public docs
 - GitHub: Unknown from public docs
-- Last checked: 2026-06-29T05:09:39.317Z
+- Last checked: 2026-07-13T21:43:34.073Z
 - Docs access: public
 - Docs confidence: A
 - Notes: Not Arab-owned now, but regionally critical.

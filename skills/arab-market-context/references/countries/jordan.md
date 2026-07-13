@@ -8,7 +8,7 @@
   - Native reviewed: no
   - Expert reviewed: no
   - Market validated: no
-- Last checked: 2026-06-29T05:18:15.949Z
+- Last checked: 2026-07-13T21:53:20.129Z
 - Confidence: medium
 - Primary sources:
   - https://data.worldbank.org/
