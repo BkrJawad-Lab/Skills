@@ -9,7 +9,7 @@
 - Postman: Unknown from public docs
 - SDKs: Unknown from public docs
 - GitHub: Unknown from public docs
-- Last checked: 2026-07-13T21:43:34.051Z
+- Last checked: 2026-08-03T06:55:53.364Z
 - Docs access: public
 - Docs confidence: A
 - Notes: Strong Egypt shipping API candidate.

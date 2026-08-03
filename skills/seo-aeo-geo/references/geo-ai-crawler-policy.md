@@ -21,4 +21,4 @@ Separate these crawler classes:
 
 ## ArabSkills Current Direction
 
-ArabSkills should be visible in search and AI-search surfaces while keeping private crawler/eval/system work out of the public repo. Public pages and exported public data can be crawlable; private workflows, tokens, and unreleased review material must remain private.
+ArabSkills should be visible in search and AI-search surfaces while exposing only approved public pages and exported public data. Tokens, unpublished review material, and non-public workflows must never be exposed.
