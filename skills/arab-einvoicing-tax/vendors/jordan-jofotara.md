@@ -9,7 +9,7 @@
 - Postman: Unknown from public docs
 - SDKs: Unknown from public docs
 - GitHub: Unknown from public docs
-- Last checked: 2026-08-03T06:55:53.373Z
+- Last checked: 2026-08-10T06:03:41.766Z
 - Docs access: public
 - Docs confidence: B
 - Notes: Official docs should be added when found; Odoo confirms integration behavior.

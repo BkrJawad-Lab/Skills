@@ -35,7 +35,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Use as public opinion and social survey context, not as individual behavior proof."
   },
   {
@@ -74,7 +74,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Use economic and digital-development indicators as context only."
   },
   {
@@ -113,7 +113,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Machine-readable indicator access reference."
   },
   {
@@ -152,7 +152,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Connectivity and telecom indicators."
   },
   {
@@ -191,7 +191,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Industry signal for mobile adoption; use as regional context."
   },
   {
@@ -230,7 +230,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Digital adoption and channel signals; verify report year."
   },
   {
@@ -269,7 +269,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Locale data for dates, numbers, plural rules, and display names."
   },
   {
@@ -308,7 +308,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Primary bidi text behavior reference."
   },
   {
@@ -347,7 +347,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Arabic script layout requirements."
   },
   {
@@ -386,7 +386,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Phone parsing/formatting implementation reference."
   },
   {
@@ -425,7 +425,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Address metadata reference; still verify country-specific forms."
   },
   {
@@ -464,7 +464,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Localization implementation patterns."
   },
   {
@@ -503,7 +503,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Intl formatting implementation patterns."
   },
   {
@@ -542,7 +542,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Arabic NLP tooling source."
   },
   {
@@ -581,7 +581,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Dialect research reference; not copywriting proof by itself."
   },
   {
@@ -620,7 +620,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Dialect identification research reference."
   },
   {
@@ -659,7 +659,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Dialect data reference."
   },
   {
@@ -698,7 +698,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Platform mechanics and policy reference; re-check live docs."
   },
   {
@@ -737,7 +737,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Ad safety/policy mechanics; not cultural evidence."
   },
   {
@@ -776,7 +776,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Search implementation reference."
   },
   {
@@ -815,7 +815,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Machine-readable holiday lead; verify official country source for launch-critical dates."
   },
   {
@@ -854,7 +854,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Holiday calculation lead; verify official sources."
   },
   {
@@ -893,7 +893,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Hijri date estimates only."
   },
   {
@@ -932,7 +932,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Official VAT reference for Saudi Arabia."
   },
   {
@@ -971,7 +971,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Official VAT reference for Bahrain."
   },
   {
@@ -1010,7 +1010,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Business environment context; not sales norm proof."
   },
   {
@@ -1049,7 +1049,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Google says AI features use the same SEO fundamentals and require indexed, snippet-eligible pages."
   },
   {
@@ -1088,7 +1088,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Use to avoid search-engine-first pages and thin content."
   },
   {
@@ -1127,7 +1127,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Structured data must accurately represent visible page content."
   },
   {
@@ -1166,7 +1166,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Canonical URLs in sitemaps should be absolute and significant lastmod values should be accurate."
   },
   {
@@ -1205,7 +1205,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "OpenAI crawler access depends on robots.txt plus web protection, bot mitigation, and rate limiting layers."
   },
   {
@@ -1244,7 +1244,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Perplexity distinguishes search/index bots from user-request fetchers and recommends WAF allowlisting for visibility."
   },
   {
@@ -1283,7 +1283,7 @@
     ],
     "confidence": "high",
     "official": true,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Anthropic distinguishes ClaudeBot, Claude-User, and Claude-SearchBot in robots policy."
   },
   {
@@ -1322,7 +1322,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Useful AI-readable site map proposal; not an official Google ranking requirement."
   },
   {
@@ -1361,7 +1361,7 @@
     ],
     "confidence": "medium",
     "official": false,
-    "last_checked_at": "2026-08-03T06:59:36.588Z",
+    "last_checked_at": "2026-08-10T06:07:54.723Z",
     "notes": "Academic framing for improving visibility in generative engines; use cautiously and test."
   }
 ]

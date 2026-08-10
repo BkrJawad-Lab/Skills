@@ -12,15 +12,9 @@ All external submissions require maintainer approval before publication. A sugge
 2. Use blogs or directories only as leads.
 3. Do not add claims about endpoints, payment methods, countries, pricing, compliance, SDKs, webhooks, or sandbox behavior unless they are source-backed.
 4. Mark uncertain fields as `Unknown from public docs` or `Needs vendor access`.
-5. Run:
+5. Open an issue or pull request with the proposed facts and source URLs, then wait for maintainer review.
 
-```bash
-pnpm registry:validate
-pnpm skills:generate
-pnpm skills:validate
-pnpm evals:run
-pnpm site:build
-```
+Submissions are not published automatically.
 
 ## Skill Contributions
 

@@ -9,7 +9,7 @@
 - Postman: Unknown from public docs
 - SDKs: Unknown from public docs
 - GitHub: https://github.com/CAMeL-Lab/camel_tools
-- Last checked: 2026-08-03T06:55:53.379Z
+- Last checked: 2026-08-10T06:03:41.770Z
 - Docs access: public
 - Docs confidence: A
 - Notes: Best open-source Arabic NLP skill base.
