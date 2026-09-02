@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>صِلَة دوائي — العرض التفاعلي (31 شريحة)</title>
+<style>
+  :root{
+    --primary:#0E7C7B; --primary-dk:#0A5C5B; --dark:#0B2545; --accent:#E0A458;
+    --light:#F4F7FA; --white:#fff; --muted:#505A6A; --grey:#6B7484; --ice:#C8E0DF;
+    --soft:#9FB7C7; --shadow:0 10px 30px rgba(11,37,69,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:"Segoe UI","Noto Kufi Arabic","Noto Naskh Arabic",Tahoma,Arial,sans-serif;
+    background:radial-gradient(1200px 700px at 85% -10%, #123a63 0%, var(--dark) 45%, #071831 100%);
+    color:var(--muted); overflow:hidden; display:flex; align-items:center; justify-content:center;
+  }
+  /* ---------- المسرح ---------- */
+  #stage{
+    width:1280px; height:720px; position:relative; transform-origin:center center;
+    border-radius:14px; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.5);
+    background:var(--light);
+  }
+  .slide{
+    position:absolute; inset:0; padding:46px 56px 40px; background:var(--light);
+    display:none; flex-direction:column;
+  }
+  .slide.active{display:flex; animation:fadeIn .45s ease both}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(14px)}to{opacity:1; transform:none}}
+  .slide.dark{background:linear-gradient(135deg,#0d2c50 0%, var(--dark) 55%, #081a33 100%)}
+  .slide.dark .footer{color:rgba(255,255,255,.45)}
+  /* ---------- العناصر ---------- */
+  .kicker{font-size:13px; font-weight:700; color:var(--primary); letter-spacing:.4px; margin-bottom:6px}
+  .kicker.gold{color:var(--accent)}
+  .title{font-size:29px; font-weight:800; color:var(--dark); line-height:1.25}
+  .slide.dark .title{color:#fff}
+  .rule{width:74px; height:5px; border-radius:3px; background:var(--primary); margin:12px 0 20px}
+  .rule.gold{background:var(--accent)} .rule.teal{background:var(--primary-dk)}
+  .banner{
+    border-radius:14px; padding:14px 22px; font-weight:800; line-height:1.55;
+    background:var(--primary); color:#fff; font-size:16.5px;
+  }
+  .banner.dark{background:var(--dark)} .banner.gold{background:var(--accent); color:var(--dark)}
+  .banner .lead{color:var(--accent)} .banner.gold .lead{color:var(--dark)}
+  ul.b{list-style:none; display:flex; flex-direction:column; gap:14px; font-size:15.5px; line-height:1.65}
+  ul.b li{position:relative; padding-right:26px}
+  ul.b li::before{content:""; position:absolute; right:0; top:.62em; width:11px; height:11px; border-radius:50%; background:var(--primary)}
+  ul.b.gold li::before{background:var(--accent)}
+  ul.b.sm{font-size:14px; gap:11px}
+  .grid{display:grid; gap:18px}
+  .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g5{grid-template-columns:repeat(5,1fr)}
+  .card{background:#fff; border-radius:14px; box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column}
+  .card .hd{padding:13px 20px; font-weight:800; color:#fff; font-size:17px; background:var(--primary)}
+  .card .hd.gold{background:var(--accent); color:var(--dark)} .card .hd.teal{background:var(--primary-dk)}
+  .card .bd{padding:16px 20px; flex:1; display:flex; flex-direction:column; gap:11px; font-size:14px; line-height:1.6}
+  .card .bd ul{list-style:none} .card .bd li{position:relative; padding-right:20px; margin-bottom:4px}
+  .card .bd li::before{content:""; position:absolute; right:0; top:.58em; width:9px; height:9px; border-radius:50%; background:var(--primary)}
+  .card .bd.gold li::before{background:var(--accent)} .card .bd.teal li::before{background:var(--primary-dk)}
+  .tbl{width:100%; border-collapse:separate; border-spacing:0; font-size:13px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:var(--shadow)}
+  .tbl th{background:var(--dark); color:#fff; padding:11px 14px; font-size:14px; text-align:right}
+  .tbl th.c, .tbl td.c{text-align:center}
+  .tbl td{padding:10px 14px; border-bottom:1px solid #e8eef4; line-height:1.45; vertical-align:top}
+  .tbl tr:nth-child(even) td{background:#f7fafc}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl td.r1{font-weight:700; color:var(--dark)}
+  .tbl td.r2{color:var(--primary); font-weight:700}
+  .stat{background:#fff; border-radius:14px; box-shadow:var(--shadow); padding:20px 22px; border-top:5px solid var(--primary); display:flex; flex-direction:column; gap:8px}
+  .stat .big{font-size:26px; font-weight:800; color:var(--primary)}
+  .stat .act{font-weight:700; color:var(--dark); font-size:13.5px}
+  .strip{background:var(--dark); color:#fff; border-radius:12px; padding:11px 20px; font-size:14.5px; font-weight:600; line-height:1.55}
+  .strip .lead{color:var(--accent); font-weight:800}
+  .strip.teal{background:var(--primary)} .strip.gold{background:var(--accent); color:var(--dark)}
+  .strip.gold .lead{color:var(--dark)}
+  .pill{background:var(--dark); color:#fff; border-radius:12px; padding:12px 18px; font-size:14.5px; font-weight:700}
+  .pill .a{color:var(--accent)}
+  .voice{background:#fff; border-radius:12px; box-shadow:var(--shadow); padding:14px 18px; display:flex; align-items:center; gap:14px}
+  .voice .tag{min-width:96px; text-align:center; border-radius:10px; padding:10px 8px; color:#fff; font-weight:800; font-size:14.5px}
+  .voice .q{font-weight:700; color:var(--dark); font-size:16px}
+  .flow{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  .fbox{background:var(--dark); color:#fff; border-radius:12px; padding:14px; text-align:center; font-weight:800; font-size:15px; box-shadow:var(--shadow)}
+  .numbox{display:flex; align-items:center; gap:12px; background:#fff; border-radius:12px; box-shadow:var(--shadow); padding:10px 16px}
+  .numbox .n{min-width:40px; height:40px; border-radius:10px; background:var(--primary); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:16px}
+  .numbox .t{font-size:16.5px; color:var(--dark); font-weight:600}
+  .bar-row{display:flex; flex-direction:column; gap:4px}
+  .bar-row .lab{display:flex; justify-content:space-between; font-size:12.5px; color:var(--muted); font-weight:600}
+  .bar-row .track{height:9px; background:#e6edf3; border-radius:6px; overflow:hidden}
+  .bar-row .fill{height:100%; border-radius:6px; background:var(--primary)}
+  .bar-row .fill.gold{background:var(--accent)}
+  .phase{background:#fff; border-radius:14px; box-shadow:var(--shadow); overflow:hidden}
+  .phase .ph-hd{padding:14px 18px; color:#fff; background:var(--primary)}
+  .phase .ph-hd h3{font-size:18px} .phase .ph-hd span{font-size:13px; color:var(--ice); font-weight:700}
+  .phase .ph-bd{padding:14px 18px; display:flex; flex-direction:column; gap:10px; font-size:13.5px}
+  .phase .ph-bd li{list-style:none; position:relative; padding-right:18px; line-height:1.5}
+  .phase .ph-bd li::before{content:""; position:absolute; right:0; top:.55em; width:8px; height:8px; border-radius:50%; background:var(--primary)}
+  .mini{background:#fff; border-radius:12px; box-shadow:var(--shadow); padding:13px 16px}
+  .mini h4{color:var(--primary); font-size:15.5px; margin-bottom:5px}
+  .mini p{font-size:12px; line-height:1.5}
+  .risk{background:#fff; border-radius:12px; box-shadow:var(--shadow); padding:13px 16px 13px 22px; border-right:5px solid var(--accent)}
+  .risk h4{font-size:14px; color:var(--dark); margin-bottom:5px}
+  .risk p{font-size:12px; line-height:1.5}
+  /* الغلاف */
+  .cover{justify-content:center}
+  .cover .brand{color:var(--accent); font-weight:800; font-size:19px; margin-bottom:14px}
+  .cover h1{font-size:52px; color:#fff; font-weight:800; line-height:1.15}
+  .cover .sub{font-size:21px; color:var(--ice); margin-top:12px; font-weight:600}
+  .cover .divider{width:120px; height:7px; background:var(--accent); border-radius:4px; margin:26px 0}
+  .cover .tagline{color:var(--soft); font-size:15px}
+  .cover .chip{display:inline-flex; gap:18px; color:#fff; font-weight:700; font-size:15px}
+  .quote{background:#fff; border-radius:14px; box-shadow:var(--shadow); padding:26px 30px; border-right:8px solid var(--primary); font-size:19px; line-height:1.9; color:var(--muted)}
+  .quote b{color:var(--primary)} .quote .dk{color:var(--dark)}
+  .closing h1{font-size:40px; color:#fff; font-weight:800; line-height:1.3}
+  .closing p.lead2{font-size:19px; color:var(--ice); line-height:1.9; margin-top:22px; max-width:1100px}
+  .closing .cta{margin-top:26px; font-size:17px; font-weight:700}
+  .closing .cta .a{color:var(--accent)}
+  .closing .brandline{margin-top:34px; font-size:18px; color:#fff}
+  .closing .brandline .a{color:var(--accent); font-weight:800}
+  .footer{position:absolute; right:56px; bottom:14px; left:56px; display:flex; justify-content:space-between; font-size:10.5px; color:var(--grey)}
+  .pageno{position:absolute; left:56px; bottom:14px}
+  /* ---------- HUD ---------- */
+  #progress{position:fixed; top:0; right:0; left:0; height:5px; background:rgba(255,255,255,.12); z-index:20}
+  #progress-bar{height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--primary)); transition:width .3s ease}
+  #hud{position:fixed; bottom:14px; left:50%; transform:translateX(-50%); display:flex; gap:10px; align-items:center; z-index:20;
+       background:rgba(11,37,69,.78); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:8px 12px}
+  #hud button{background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.18); border-radius:9px; padding:7px 13px; font-size:13.5px; cursor:pointer; font-family:inherit; transition:background .2s}
+  #hud button:hover{background:rgba(224,164,88,.35)}
+  #counter{color:#fff; font-size:13px; font-weight:700; min-width:64px; text-align:center; direction:ltr}
+  #hint{position:fixed; top:14px; left:16px; z-index:20; color:rgba(255,255,255,.55); font-size:12px; line-height:1.7; text-align:left}
+  /* ---------- فهرس الشرائح ---------- */
+  #overlay{position:fixed; inset:0; background:rgba(7,20,38,.88); backdrop-filter:blur(6px); z-index:30; display:none; overflow:auto; padding:48px 5vw}
+  #overlay.open{display:block}
+  #overlay h2{color:#fff; font-size:22px; margin-bottom:20px}
+  #overlay .gridix{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+  #overlay .ix{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:14px; color:#fff; cursor:pointer; transition:all .15s}
+  #overlay .ix:hover{background:rgba(224,164,88,.25); transform:translateY(-2px)}
+  #overlay .ix .no{color:var(--accent); font-weight:800; font-size:13px}
+  #overlay .ix .tt{margin-top:5px; font-size:14px; line-height:1.5}
+  /* ---------- الطباعة ---------- */
+  @media print{
+    body{background:#fff; overflow:visible; display:block}
+    #progress,#hud,#hint,#overlay{display:none!important}
+    #stage{transform:none!important; width:auto; height:auto; box-shadow:none; border-radius:0}
+    .slide{display:flex!important; position:relative; page-break-after:always; width:1280px; height:720px; margin:0 auto}
+  }
+</style>
+</head>
+<body>
+<div id="progress"><div id="progress-bar"></div></div>
+
+<div id="stage">
+
+  <!-- 1 — الغلاف -->
+  <section class="slide dark cover active" data-title="الغلاف — صِلَة دوائي">
+    <div class="brand">صِـلَة دوائي &nbsp;|&nbsp; Silla Al-Dawai</div>
+    <h1>الاستراتيجية التسويقية الشاملة</h1>
+    <div class="sub">منصّة الرعاية الصيدلانية الرقمية في العراق — أونلاين وأوفلاين</div>
+    <div class="divider"></div>
+    <div class="chip"><span>الثقة</span><span>•</span><span>التوفّر الفعلي</span><span>•</span><span>الدفع عند الاستلام</span><span>•</span><span>النمو</span></div>
+    <div style="height:26px"></div>
+    <div class="tagline">دواؤك… يصلك من صيدلية مرخّصة قريبة منك</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 2 — خطة العرض -->
+  <section class="slide" data-title="خطة العرض">
+    <div class="kicker">Agenda</div>
+    <div class="title">خطة العرض</div>
+    <div class="rule"></div>
+    <div class="grid" style="grid-template-columns:1fr; gap:9px; flex:1; align-content:center">
+      <div class="numbox"><div class="n">١</div><div class="t">الخلاصة التنفيذية — من أين نبدأ؟</div></div>
+      <div class="numbox"><div class="n">٢</div><div class="t">السوق العراقي — أرقام تحسم القرار</div></div>
+      <div class="numbox"><div class="n">٣</div><div class="t">المشكلة الكبرى: فوضى الأدوية غير الموثوقة</div></div>
+      <div class="numbox"><div class="n">٤</div><div class="t">المنافسون وموقع التمايز</div></div>
+      <div class="numbox"><div class="n">٥</div><div class="t">التموضع وبيان العلامة</div></div>
+      <div class="numbox"><div class="n">٦</div><div class="t">الجماهير المستهدفة: مريض، صيدلية، سائق</div></div>
+      <div class="numbox"><div class="n">٧</div><div class="t">نموذج النموّ — الـ Flywheel</div></div>
+      <div class="numbox"><div class="n">٨</div><div class="t">الإبداع أونلاين وأوفلاين</div></div>
+      <div class="numbox"><div class="n">٩</div><div class="t">آليات النمو، المؤشّرات، ومزيج التسويق</div></div>
+      <div class="numbox"><div class="n">١٠</div><div class="t">الخارطة، الميزانية، المخاطر — والبدء</div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 3 — الخلاصة التنفيذية -->
+  <section class="slide" data-title="الخلاصة: المعركة معركة ثقة">
+    <div class="kicker">Executive Summary</div>
+    <div class="title">الخلاصة التنفيذية: المعركة معركة ثقة</div>
+    <div class="rule"></div>
+    <div class="quote" style="font-size:16.5px; border-right-color:var(--primary); padding:22px 26px">
+      السوق العراقي غارقٌ بصفحاتٍ وتطبيقات تبيع الأدوية عبر فيسبوك وإنستغرام وتيليغرام <span class="dk"><b style="color:var(--dark)">بلا ترخيص ولا رقابة</b></span> — وقد حذّرت نقابة صيادلة العراق صراحةً من هذه الظاهرة لأنّها تمثّل خطراً على حياة المرضى (أدوية مغشوشة، منتهية الصلاحية، حسابات تنتحل اسم أطباء).
+    </div>
+    <div style="height:18px"></div>
+    <div class="banner dark"><span class="lead">الموقع الذي لا يملكه أيّ منافس: </span>«صِلَة دوائي = القناة القانونية المعتمدة الوحيدة»</div>
+    <div style="height:18px"></div>
+    <ul class="b sm">
+      <li>كل قرار في هذه الاستراتيجية يجب أن يصدح بهذه الحقيقة — قبل أي قرار سعر أو حملة.</li>
+      <li>ثلاث ركائز للبداية: قِسْ أولاً • كثّف جغرافياً • اصنع الفجوة التنظيمية صناعةً لا عائقاً.</li>
+    </ul>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 4 — ثلاث ركائز -->
+  <section class="slide" data-title="ثلاث ركائز للبداية">
+    <div class="kicker">Starting Principles</div>
+    <div class="title">ثلاث ركائز للبداية — بالترتيب</div>
+    <div class="rule"></div>
+    <div class="grid g3" style="flex:1">
+      <div class="card"><div class="hd">١ — قِسْ قبل أن تنفق</div><div class="bd">
+        <div style="color:var(--dark); font-weight:600">النِسبة الأصلية للنجاح هي الطلب المكتمل المدفوع، لا عدد التنزيلات.</div>
+        <div>فعّل AppsFlyer/Firebase + GA4 + UTM على كل رابط ورمز QR قبل أول دينار.</div>
+      </div></div>
+      <div class="card"><div class="hd gold">٢ — كثافة جغرافية</div><div class="bd gold">
+        <div style="color:var(--dark); font-weight:600">مشكلة السوق الثنائي (البيضة والدجاجة) تُحَلّ بالتكثّف في نطاق واحد (بغداد).</div>
+        <div>املأه صيدليات وسائقين حتى يتحقّق «توفّر عالٍ» — ولا حملات طلب واسعة قبل رصيد عرضٍ حقيقي.</div>
+      </div></div>
+      <div class="card"><div class="hd teal">٣ — اصنع الفجوة التنظيمية</div><div class="bd teal">
+        <div style="color:var(--dark); font-weight:600">تحوّل التحذير القانوني من عائقٍ منافسٍ إلى ميزةٍ وُجدت لأجلنا.</div>
+        <div>حملة «دواؤك يصلك من صيدلية مرخّصة» تتصدّى للصفحات غير الموثوقة: تخدم المريض وتبني العلامة.</div>
+      </div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 5 — أول 30 يوماً -->
+  <section class="slide" data-title="خارطة أول ٣٠ يوماً">
+    <div class="kicker">First 30 Days</div>
+    <div class="title">خارطة أول ٣٠ يوماً</div>
+    <div class="rule"></div>
+    <table class="tbl">
+      <tr><th class="c" style="width:90px">الأسبوع</th><th style="width:200px">الأولوية</th><th>الإجراء</th></tr>
+      <tr><td class="c r1">١</td><td class="r1">القياس + العرض</td><td>تتبّع كامل من التنزيل إلى الطلب؛ تجهيز ١٠–٢٥ صيدلية مرخّصة مؤكّدة في النطاق؛ ضبط «التوفّر الفعلي» وهدف زمن التلبية.</td></tr>
+      <tr><td class="c r1">٢</td><td class="r1">تجربة التسليم</td><td>توظيف ١٠–١٥ سائقاً مؤكّداً؛ ضبط زمن التوصيل؛ إصدار دليل «صفر تأخير» للسائقين.</td></tr>
+      <tr><td class="c r1">٣</td><td class="r1">أول محتوى ثقة + إحالة</td><td>صفحة هبوط عربية؛ محتوى «صيدلية مرخّصة = دواء آمن»؛ تفعيل برنامج الإحالة.</td></tr>
+      <tr><td class="c r1">٤</td><td class="r1">أول حملة بصرية</td><td>حملة محلية محدودة (ميتا/إنستغرام/TikTok) في نفس النطاق، برسالة الثقة والدفع عند الاستلام — مع مراقبة CAC مقابل القيمة.</td></tr>
+    </table>
+    <div style="height:16px"></div>
+    <div class="strip"><span class="lead">القاعدة: </span>لا زبوناً يدفع له إعلان ليجد «لا توفّر» — يرتدّ ولا يعود.</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 6 — أرقام السوق -->
+  <section class="slide" data-title="السوق العراقي — أرقام">
+    <div class="kicker">Iraq Market • أوائل 2025</div>
+    <div class="title">السوق العراقي — أرقام تحسم القرار</div>
+    <div class="rule"></div>
+    <table class="tbl">
+      <tr><th style="width:34%">المؤشّر</th><th class="c" style="width:32%">القيمة</th><th>الدلالة التسويقية</th></tr>
+      <tr><td class="r1">عدد السكان</td><td class="c r2">~46.5 مليون</td><td>72% في المدن — كتلة سوق حضرية</td></tr>
+      <tr><td class="r1">مستخدمو الإنترنت</td><td class="c r2">~38.0 مليون</td><td>81.7% — بنية رقمية واسعة</td></tr>
+      <tr><td class="r1">هويّات التواصل الاجتماعي</td><td class="c r2">~34.3 مليون</td><td>73.8% — جمهور ضخم للتعليم الذاتي</td></tr>
+      <tr><td class="r1">تيك توك</td><td class="c r2">90% من مستخدمي الإنترنت</td><td>القناة الأوسع انتشاراً في العراق</td></tr>
+      <tr><td class="r1">فيسبوك</td><td class="c r2">~20.1 مليون</td><td>75% من البالغين — الأشد ثقة للجمهور الأوسع</td></tr>
+      <tr><td class="r1">إنستغرام</td><td class="c r2">~19.0 مليون</td><td>69% من البالغين — بصرية وحياة</td></tr>
+      <tr><td class="r1">سناب شات</td><td class="c r2">~18.5 مليون</td><td>جمهور شاب جداً</td></tr>
+      <tr><td class="r1">العمر الوسيط</td><td class="c r2">20.8 سنة</td><td>سوق شابّ — والدواء يمسّ العائلات كلّها</td></tr>
+    </table>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 7 — الفوضى -->
+  <section class="slide" data-title="فوضى الأدوية غير الموثوقة">
+    <div class="kicker gold">Hidden Opportunity</div>
+    <div class="title">المشكلة الكبرى: فوضى الأدوية غير الموثوقة</div>
+    <div class="rule gold"></div>
+    <div style="font-size:16.5px; font-weight:700; color:var(--dark); line-height:1.6">
+      نقابة صيادلة العراق تُحذّر المواطنين رسمياً من شراء الأدوية ومستحضرات العناية والمكمّلات عبر صفحات التواصل الاجتماعي
+    </div>
+    <div style="height:14px"></div>
+    <ul class="b">
+      <li>البيع الإلكتروني للأدوية المسجّلة خارج صيدلية مرخّصة مخالفٌ للقانون — والدواء يحتاج نصيحة صيدلي وتوضيح محاذير الاستعمال.</li>
+      <li>تحذير النقابة صريح: «أي إعلان أو ترويج عبر مواقع التواصل مخالفةٌ يحاسب عليها المعلن» — والصيدلي المخالف يُحاسَب نقابياً.</li>
+      <li>تحقيقات صحفية تكشف حسابات وهمية تنتحل صفة أطباء معروفين: علاجات وهمية، أدوية منتهية الصلاحية، وخلطات عشبية.</li>
+      <li>المصدر الشرعي الوحيد للدواء بحكم التعريف: الصيدلية المرخّصة الخاضعة للرقابة.</li>
+    </ul>
+    <div style="height:14px"></div>
+    <div class="banner">«صِلَة دوائي = القناة القانونية المعتمدة» — حجّةٌ لا يملكها أحد، ودعايةٌ مجانية إن أُحسنت صياغتها كحملة توعية وطنية.</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 8 — سلوك المستهلك -->
+  <section class="slide" data-title="سلوك المستهلك العراقي">
+    <div class="kicker">Consumer Behavior</div>
+    <div class="title">سلوك المستهلك العراقي</div>
+    <div class="rule"></div>
+    <div class="grid g3" style="flex:1">
+      <div class="stat"><div class="big">60–70%</div><div>من عمليات الشراء الإلكترونية ما تزال نقداً عند الاستلام — «حماية لحقّك».</div><div class="act">صِلَة تتبنّاه منذ اليوم: ميزةٌ لا عيب.</div></div>
+      <div class="stat" style="border-top-color:var(--accent)"><div class="big" style="color:var(--accent)">ثقة قبل سعر</div><div>غياب التحقّق يرفع الاحتيال؛ فالكسب هو للطرف «الموثّق» لا «الأرخص».</div><div class="act">التوثيق هو سعرُ الثقة في هذا السوق.</div></div>
+      <div class="stat" style="border-top-color:var(--primary-dk)"><div class="big" style="color:var(--primary-dk)">محادثة قبل صفحة</div><div>الأعمال والمشتريات تُدار عبر واتساب/تيليغرام أكثر من الصفحات.</div><div class="act">قناة الطلب/التأكيد عبر المحادثة المألوفة.</div></div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="strip"><span class="lead">مدن الطلب الأعلى (البدء والتوسّع): </span>بغداد • البصرة • أربيل • الموصل</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 9 — المنافسون -->
+  <section class="slide" data-title="تحليل المنافسين">
+    <div class="kicker">Competitive Landscape</div>
+    <div class="title">تحليل المنافسين — وموقع التمايز</div>
+    <div class="rule"></div>
+    <table class="tbl">
+      <tr><th style="width:28%">المنافس</th><th style="width:34%">طبيعته</th><th>تمايز صِلَة في مواجهته</th></tr>
+      <tr><td class="r1">فلق (Falaq) — الموصل</td><td>سوق B2B يربط الصيدليات بالمذاخر والشركات</td><td>صِلَة تخدم المريض النهائي B2C بسوق عروض وتوصيل للباب</td></tr>
+      <tr><td class="r1">فاركس (Pharx) — الموصل</td><td>يربط المريض بشبكة صيدليات للبحث عن التوفّر</td><td>صِلَة تضيف: مقارنة عروض، دفع عند الاستلام، سائقين، منظومة متكاملة</td></tr>
+      <tr><td class="r1">Iraq Gate Pharmacy</td><td>متجر أونلاين يعتمد غالباً على صيدلية/متجر واحد</td><td>صِلَة = سوق عروض متعدّدة الصيدليات</td></tr>
+      <tr><td class="r1">صيدليات الدواء (Al-Dawaa)</td><td>سلاسل راسخة خليجية مع توصيل وولاء</td><td>مؤشّر الاتجاه الإقليمي — ليس المنافس العراقي المباشر</td></tr>
+      <tr><td class="r1">صفحات/تطبيقات غير موثوقة</td><td>تبيع الأدوية بلا ترخيص عبر فيسبوك/تيليغرام</td><td><b style="color:var(--primary)">التميّز الأكبر: القناة القانونية المعتمدة — حجّةٌ لا يملكها أحد</b></td></tr>
+    </table>
+    <div style="height:12px"></div>
+    <div style="font-size:12px; color:var(--grey)"><b style="color:var(--accent)">ملاحظة منهجية: </b>قائمة مؤشّرات لا حقائق نهائية — يُتحقّق من نطاق كل منافس ببياناتٍ محدّثة.</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 10 — بيان التموضع -->
+  <section class="slide" data-title="بيان التموضع">
+    <div class="kicker">Positioning Statement</div>
+    <div class="title">بيان التموضع (للمريض)</div>
+    <div class="rule"></div>
+    <div class="quote" style="flex:1; justify-content:center">
+      «صِلَة دوائي — منصّة الرعاية الصيدلانية في العراق. دواؤك يصلك من <b>صيدليات مرخّصة قريبة</b>، تُقارن عروضها فعلياً، وتدفع <b>نقداً عند الاستلام</b>. ثقتك من ورائها سلطةٌ لا تُنتحل: صيدليّة مرخّصة، ودواءٌ فعلي التوفّر — <span class="dk"><b class="dk">لا وعودٌ على صفحات مجهولة.»</b></span>
+    </div>
+    <div style="height:18px"></div>
+    <div class="banner dark"><span class="lead">«لأنّ صحتك لا تحتمل المجازفة» — </span>صِلَة ليست تطبيق توصيل، بل شبكة صحية مُدارة ومرخّصة.</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 11 — الأصوات + الركائز -->
+  <section class="slide" data-title="عبارة لكل طرف + الركائز">
+    <div class="kicker">One Brand • Three Voices</div>
+    <div class="title">عبارة التموضع لكل طرف — والركائز الثلاث</div>
+    <div class="rule"></div>
+    <div style="display:flex; flex-direction:column; gap:12px">
+      <div class="voice"><div class="tag" style="background:var(--primary)">للمريض</div><div class="q">«قارن العروض، وادفع عند الاستلام، واطمئنّ: صيدليّة مرخّصة لا صفحة مجهولة.»</div></div>
+      <div class="voice"><div class="tag" style="background:var(--accent)">للصيدليّة</div><div class="q">«قناة رقمية إضافية… وأنت صاحب السعر والقرار.»</div></div>
+      <div class="voice"><div class="tag" style="background:var(--primary-dk)">للسائق</div><div class="q">«دخلٌ مرن، ودورٌ يوصّل دواءً لا مجرّد طرود.»</div></div>
+    </div>
+    <div style="height:20px"></div>
+    <div style="font-weight:800; color:var(--primary); font-size:17px; margin-bottom:12px">الركائز الثلاث لعلامة «صِلَة»</div>
+    <div class="grid g3">
+      <div class="pill"><span class="a">الثقة المرخّصة</span> — الجميع موثّقون</div>
+      <div class="pill"><span class="a">التوفّر الفعلي</span> — لا وعود، عرضٌ حقيقي</div>
+      <div class="pill"><span class="a">الدفع عند الاستلام</span> — معاملتك بيدك</div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 12 — Personas -->
+  <section class="slide" data-title="المرضى (B2C) — 4 Personas">
+    <div class="kicker">Audience</div>
+    <div class="title">الجماهير: المرضى (B2C) — 4 Personas</div>
+    <div class="rule"></div>
+    <table class="tbl">
+      <tr><th style="width:26%">الشريحة</th><th style="width:30%">من هم؟</th><th style="width:22%">المحفّز الأكبر</th><th>رسالتنا</th></tr>
+      <tr><td class="r1">مريض مزمن / مسنّ / مقيّد الحركة</td><td>يعتمد أدويةً باستمرار أو لا يقدر على الذهاب</td><td>استمرارية الدواء + التوفّر</td><td class="r2">«لا تنقطع أدويتك. نوصلها لك.»</td></tr>
+      <tr><td class="r1">أمّ / ربّ أسرة</td><td>تدير صحة العائلة (أطفال، كبار)</td><td>راحة، ثقة، وسرعة</td><td class="r2">«دواؤك يصلك وأنت في بيتك.»</td></tr>
+      <tr><td class="r1">الموظف / العامل</td><td>لا يملك وقتاً</td><td>توفير الوقت والسعر والتوفّر</td><td class="r2">«اطلب من مكتبك، يصل باب بيتك.»</td></tr>
+      <tr><td class="r1">الشاب الرقمي</td><td>مرتاح للمنصّات ويقارن</td><td>الشفافية والسعر</td><td class="r2">«هل دواؤك متوفّر لديهم فعلاً؟ شوف بنفسك.»</td></tr>
+    </table>
+    <div style="height:14px"></div>
+    <div class="strip"><span class="lead">حواجز القرار: </span>الثقة بالترخيص • التوفّر • وضوح السعر • خصوصية الوصفة • الدفع عند الاستلام</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 13 — B2B + Gig -->
+  <section class="slide" data-title="الصيدليات (B2B) والسائقون (Gig)">
+    <div class="kicker">Audience</div>
+    <div class="title">الجماهير: الصيدليات (B2B) والسائقون (Gig)</div>
+    <div class="rule"></div>
+    <div class="grid g2" style="flex:1">
+      <div class="card"><div class="hd">الصيدليات</div><div class="bd">
+        <li>صيدلية مستقلة صغيرة — تطلب أوامر إضافية بلا مصروف تسويق، وتهتمّ باستقلاليّتها.</li>
+        <li><b>محفّزها:</b> «أوامر إضافية بلا جهد تسويقي، وأنت من يحدّد الأسعار».</li>
+        <li>صيدلية متوسّطة / سلسلة — تريد توسّعاً رقمياً وسجلّ تسويات واضح.</li>
+        <li><b>محفّزها:</b> «لوحة متكاملة وتسوية شفّافة ومرجعية».</li>
+        <li>البوابة: B2B ميداني — فريق + Demo + Onboarding، ابدأ بالصيدليات ذات المرجعية.</li>
+      </div></div>
+      <div class="card"><div class="hd teal">السائقون</div><div class="bd teal">
+        <li>الباحثون عن دخل مرن: طلاّب، مستقلّون، أصحاب سيارات ودراجات.</li>
+        <li><b>محفّزهم:</b> المرونة، الأرباح الواضحة، والأوامر القريبة.</li>
+        <li>القيمة المعنوية: «دورٌ يوصّل دواءً يغيّر يوم إنسان» — سببٌ للعمل لا مجرّد أجرة.</li>
+        <li>آلية النمو: إحالة سائق + شفافية الأرباح + ترقية «سائق يجلب سائقاً».</li>
+        <li>التدريب: مهنيّة، سرّيّة، وزمن «صفر تأخير» — التسليم = وجهُ العلامة.</li>
+      </div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 14 — Flywheel -->
+  <section class="slide" data-title="نموذج النمو — Flywheel">
+    <div class="kicker">Growth Model</div>
+    <div class="title">نموذج النموّ — الـ Flywheel</div>
+    <div class="rule"></div>
+    <div class="banner">«الكثافة قبل الاتّساع» (Density-First) — ابدأ بنطاقٍ واحد مكثّف حتى يتحقّق توفّرٌ عالٍ، ثم توسّع.</div>
+    <div style="height:16px"></div>
+    <div class="grid g2" style="flex:1; align-items:stretch">
+      <div>
+        <div class="flow">
+          <div class="fbox">توفّرٌ عالٍ</div>
+          <div class="fbox">مزيدٌ من الزبائن</div>
+          <div class="fbox">عرضٌ أقوى: صيدليات وسائقون</div>
+          <div class="fbox">تجربة ممتازة</div>
+          <div class="fbox">أوامر أكثر</div>
+          <div class="fbox">كلمة شفاهة / إحالة</div>
+        </div>
+      </div>
+      <div class="card"><div class="hd" style="font-size:16px">لماذا يعمل؟</div><div class="bd" style="justify-content:center; font-size:14.5px">
+        <div>كلّ صيدلية وسائقٍ جديد في نفس النطاق يزيد التوفّر، يقلّل تكلفة الجذب، ويصعّد الثقة — قيمةٌ تتزايد مع كل دورة. وتُولَّد الثقة قيمةً متزايدة تمنع تفتّت التغطية.</div>
+      </div></div>
+    </div>
+    <div class="strip gold"><span class="lead">التبكير (Seeding): </span>أطلق في مناطق طلبٍ شديد — بجوار المستشفيات والعيادات، أحياء سكنية كثيفة، مناطق تجارية — وأعطها أولويّة التغطية.</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 15 — الأونلاين نظرة -->
+  <section class="slide" data-title="الأونلاين — منظومة القنوات">
+    <div class="kicker">Online Creative System</div>
+    <div class="title">الأونلاين — منظومة القنوات الإبداعية</div>
+    <div class="rule"></div>
+    <div class="grid g3" style="flex:1">
+      <div class="card"><div class="hd">تيك توك / ريلز</div><div class="bd"><div>القناة الأوسع (90%) — فيديوهات قصيرة حقيقية.</div></div></div>
+      <div class="card"><div class="hd">فيسبوك + ماسنجر</div><div class="bd"><div>الثقة والجمهور الأوسع — محتوى تحذير + بوت.</div></div></div>
+      <div class="card"><div class="hd gold">إنستغرام</div><div class="bd gold"><div>بصرية وحياة — ستوريات يومية ومؤثّرون محليون.</div></div></div>
+      <div class="card"><div class="hd teal">واتساب / تيليغرام</div><div class="bd teal"><div>بيع وخدمة وتأكيد أوامر + بديل iOS.</div></div></div>
+      <div class="card"><div class="hd">ASO + SEO</div><div class="bd"><div>نموّ غير مكلّف من المتجر والبحث العربي.</div></div></div>
+      <div class="card"><div class="hd gold">إحالة + ولاء</div><div class="bd gold"><div>الدواء شأنٌ عائلي — أعلى تحويل في القطاع الصحي.</div></div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 16 — الحملة الكبرى -->
+  <section class="slide" data-title="الحملة: صيدليتُك لا صفحة مجهولة">
+    <div class="kicker gold">Flagship Campaign</div>
+    <div class="title">الحملة الكبرى: «صيدليتُك لا صفحةٌ مجهولة»</div>
+    <div class="rule gold"></div>
+    <div class="banner gold">حملة توعوية وطنية تتصدّى لمخاطر صفحات الأدوية المزوّرة — مستندة إلى تحذير نقابة الصيادلة؛ تخدم المريض وتبني العلامة في آنٍ واحد.</div>
+    <div style="height:22px"></div>
+    <ul class="b gold" style="font-size:16px">
+      <li>سلسلة محتوى «كيف تتحقق أن الدواء أصلي؟» — الملصق السعري، المصدر، العيوب، تاريخ الصلاحية: تعليم + بناء ثقة.</li>
+      <li>فيديوهات «الفرق بين صيدلية مرخّصة وصفحة وهمية» بأسلوب قصصي (شخصٌ يعاني من دواء منتهٍ الصلاحية).</li>
+      <li>محتوى «جناح الثقة»: لقطات حقيقية من رحلة التوثيق داخل صِلَة (مراجعة الترخيص والوثائق).</li>
+      <li>هاشتاغٌ حامل للحملة — بمراجعة ناطق وقانوني للصياغة قبل النشر.</li>
+    </ul>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 17 — تيك توك -->
+  <section class="slide" data-title="تيك توك / ريلز">
+    <div class="kicker">~90% من مستخدمي الإنترنت</div>
+    <div class="title">الأونلاين: تيك توك / ريلز — الأوسع انتشاراً</div>
+    <div class="rule"></div>
+    <div class="banner">محتوى قصير، حقيقي، موثوق — بلا ادّعاءات صحية خارج الرقابة.</div>
+    <div style="height:22px"></div>
+    <ul class="b" style="font-size:16px">
+      <li>«دواؤك موجود؟» — مقاطع قصيرة تبحث عن دواءٍ نادر/شائع وتُظهر توفّره الفعلي في الصيدليات.</li>
+      <li>«رحلة الأمر في ١٠ ثوانٍ» — من تصوير الوصفة إلى استلام الطرد (By-Example).</li>
+      <li>سلسلة «ضحّينا على الصفحات المزوّرة» — بفكاهة محلية حذرة تشرح الفخاخ.</li>
+      <li>قصص حقيقية من المستخدمين (UGC) — مرضى وأهاليهم، بدعم تعاوني.</li>
+      <li>تحدٍّ/مسابقة بوسمٍ خاص — بشروط مراجعة الرعاة وعدم التضليل.</li>
+    </ul>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 18 — فيسبوك -->
+  <section class="slide" data-title="فيسبوك + ماسنجر + واتساب">
+    <div class="kicker">Trust &amp; Conversation</div>
+    <div class="title">الأونلاين: فيسبوك + ماسنجر + واتساب</div>
+    <div class="rule"></div>
+    <div class="grid g2" style="flex:1">
+      <div class="card"><div class="hd">المحتوى والثقة</div><div class="bd">
+        <li>استثمار تحذير النقابة: «الدواء يُعرض في الصيدلية، لا في صفحة» + طمأنة بجهةٍ مرخّصة.</li>
+        <li>دليل توثيق مرئي يرافق كل ادّعاء ثقة.</li>
+        <li>مجموعات المجتمع المحلي/الأمّهات — حملات إرشاد ووعي صحي.</li>
+        <li>إعلانات مخصّصة للأحياء المستهدفة في نطاق الإطلاق.</li>
+      </div></div>
+      <div class="card"><div class="hd gold">المحادثة والأتمتة</div><div class="bd gold">
+        <li>بوت ماسنجر/واتساب: تأكيد الأمر، تتبّع الحالة، ودعم مباشر — بيئة محادثة مألوفة تقلّل الاحتكاك.</li>
+        <li>جروب واتساب/تيليغرام رسمي: خدمة وأوامر وتعويضٍ لمستخدمي iOS قبل الإطلاق.</li>
+        <li>فصل الخدمة عن التسويق — قناة خدمة مستقلة بقواعد إلغاء اشتراك وخصوصية.</li>
+      </div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 19 — إنستغرام -->
+  <section class="slide" data-title="إنستغرام — البصرية والحياة">
+    <div class="kicker gold">Visual &amp; Lifestyle</div>
+    <div class="title">الأونلاين: إنستغرام — البصرية والحياة</div>
+    <div class="rule gold"></div>
+    <div class="grid g3" style="flex:1">
+      <div class="card"><div class="hd gold">ستوريات يومية</div><div class="bd gold"><div>«ماذا في أمرك؟» — محتوى حيّ يومي: تجهيز الطرد، لحظة التسليم، وجه السائق، شكر الزبون.</div></div></div>
+      <div class="card"><div class="hd gold">هايلايتس دائمة</div><div class="bd gold"><div>«كيف تعمل صِلَة» + «لماذا نحن آمنون» — إجابة كل سؤال ثقة قبل أن يُطرح.</div></div></div>
+      <div class="card"><div class="hd gold">مؤثّرون محليون</div><div class="bd gold"><div>صحة، أمومة، حياة، أطباء — بإفصاح واضح عن الرعاية ومراجعة كل ادّعاء قبل النشر.</div></div></div>
+    </div>
+    <div style="height:16px"></div>
+    <div class="strip"><span class="lead">قاعدة المؤثّرين: </span>إفصاح واضح + مراجعة ادّعاءات + لا نصيحة طبية إطلاقاً.</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 20 — نمو غير مكلّف -->
+  <section class="slide" data-title="ASO + SEO + إحالة + ولاء">
+    <div class="kicker">Compounding Growth</div>
+    <div class="title">الأونلاين: نموّ غير مكلّف — ASO + SEO + إحالة + ولاء</div>
+    <div class="rule"></div>
+    <div class="grid g2" style="flex:1">
+      <div class="card"><div class="hd">ASO + SEO</div><div class="bd">
+        <li>كلمات عربية عالية النية: «صيدلية أونلاين»، «توصيل أدوية بغداد»، «اطلب دواء»، «صيدلية قريبة» + أسماء أدوية شائعة.</li>
+        <li>أيقونة + لقطات شاشة عربية دعائية: «عروض الصيدليات» و«الدفع عند الاستلام».</li>
+        <li>تقييمات ومراجعات حقيقية + ردّ على كل تقييم.</li>
+        <li>مدوّنة/أسئلة شائعة Long-tail: «أين أشتري دواء الفلاني؟»، «كيف أرفع وصفتي؟»، «مخاطر شراء الدواء أونلاين».</li>
+        <li>ربط صفحة Google Play + مشروع iOS.</li>
+      </div></div>
+      <div class="card"><div class="hd gold">إحالة + ولاء + عرض حارس</div><div class="bd gold">
+        <li>كود إحالة عائلي — «الدواء شأنٌ عائلي»: مكافأة الموصي والموصى إليه معاً.</li>
+        <li>برنامج ولاء: نقاط لكل أمر وتوصية — يُغذّي التكرار لا الشراء الأول فقط.</li>
+        <li>عرض حارس: خصم محدود لأول أمر + شحن مجاني لفترة قصيرة — الإغراء المفرط يجلب زبائن لا يعودون.</li>
+        <li>قياس الأثر بلا إفراط في الخصم.</li>
+      </div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 21 — الأوفلاين نظرة -->
+  <section class="slide" data-title="الأوفلاين — حضور ملموس">
+    <div class="kicker" style="color:var(--primary-dk)">Offline Presence</div>
+    <div class="title">الأوفلاين — حضورٌ ملموس في الحيّ والشارع</div>
+    <div class="rule teal"></div>
+    <div class="grid g5" style="flex:1">
+      <div class="card"><div class="hd">الشراكات الصحية</div><div class="bd"><div>عيادات، مستشفيات، أطباء، مختبرات — أعلى مردود.</div></div></div>
+      <div class="card"><div class="hd gold">الحضور المادي</div><div class="bd gold"><div>ملصقات، أكياس تسليم موحّدة، رموز QR.</div></div></div>
+      <div class="card"><div class="hd teal">السائقون وسيلة متحرّكة</div><div class="bd teal"><div>أزياء موحّدة + لافتات — إعلان مجاني متواصل.</div></div></div>
+      <div class="card"><div class="hd">التوعية المجتمعية</div><div class="bd"><div>حملات بأضرار الأدوية المزوّرة + أيام فحص.</div></div></div>
+      <div class="card"><div class="hd gold">المناسبات والأجندة</div><div class="bd gold"><div>مواسم الذروة والأعياد + حفل إطلاق إعلامي.</div></div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 22 — الشراكات الصحية -->
+  <section class="slide" data-title="الشراكات الصحية">
+    <div class="kicker">Health Partnerships</div>
+    <div class="title">الأوفلاين: الشراكات الصحية — أعلى مردود</div>
+    <div class="rule"></div>
+    <div class="banner"><span class="lead">الفكرة المحورية: </span>«صوّر وصفتك، وأدويةُ توصلك إلى بيتك» — رمز QR في استقبال العيادة وصالة الانتظار.</div>
+    <div style="height:22px"></div>
+    <ul class="b" style="font-size:16px">
+      <li>العيادات والمستشفيات والأطباء — رمز QR عند الاستقبال (باتفاق مع العيادة، مع مراعاة سرّيّة بيانات المريض).</li>
+      <li>أقسام التصوير والمختبرات — «استلم نتيجتك ووصفتك من مكانك» — يستغلّ زيارةٍ هي في ذروة الحاجة.</li>
+      <li>جمعيات خيرية — حملة «صلة خير» توصّل الدواء للمحتاجين: قصة إنسانية تُغذي «القلب» من العلامة.</li>
+      <li>الامتثال الحاكم: اتفاقيات وصول + خصوصية + لا نصيحة طبية من العلامة.</li>
+    </ul>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 23 — حضور + سائق -->
+  <section class="slide" data-title="حضور مادي + سائق إعلاني">
+    <div class="kicker gold">Guerrilla</div>
+    <div class="title">الأوفلاين: حضورٌ مادي + السائق كوسيلة إعلانية متحرّكة</div>
+    <div class="rule gold"></div>
+    <div class="banner gold">السائق يتجوّل في كل نطاق يومياً — إعلانٌ مجانيٌّ متواصل يصل إلى كل حيّ.</div>
+    <div style="height:22px"></div>
+    <ul class="b gold" style="font-size:16px">
+      <li>أزياء موحّدة + لافتات على السيارات/الدراجات تحمل «صِلَة دوائي — دواؤك يصلك».</li>
+      <li>أكياس/شكائر ورقية موحّدة يُسلَّم بها الطرد + بطاقة ترحيب ورمز QR — تنتقل عبر الأحياء يداً بيد.</li>
+      <li>ملصقات/بوسترات في الصيدليات الشريكة ومراكز الخدمة والمناطق عالية الطلب.</li>
+      <li>كود دعوة السائق + برنامج «سائق يجلب سائقاً» — توسّع أسطولٍ يبني نفسه بنفسه.</li>
+    </ul>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 24 — توعية + مناسبات -->
+  <section class="slide" data-title="توعية مجتمعية ومناسبات">
+    <div class="kicker">Brand Purpose &amp; Timing</div>
+    <div class="title">الأوفلاين: التوعية المجتمعية والمناسبات</div>
+    <div class="rule"></div>
+    <div class="grid g2" style="flex:1">
+      <div class="card"><div class="hd teal">التوعية والمجتمع</div><div class="bd teal">
+        <li>حملات بأضرار الأدوية المزوّرة في المدارس والجامعات والمراكز المجتمعية.</li>
+        <li>بشراكة مع نقابة الصيادلة أو مؤسسات صحية — تُبنى الثقة وعلامة «المسؤول».</li>
+        <li>أيام فحص/تثقيف صحي برعاية «صِلَة» — اسمٌ حاضرٌ في سياقٍ صحي موثوق.</li>
+      </div></div>
+      <div class="card"><div class="hd">التوقيت والأجندة والإطلاق</div><div class="bd">
+        <li>مواسم ذروة الأمراض (تغيّر الطقس، الإنفلونزا): «تجهّز — دواؤك يصلك بسرعة».</li>
+        <li>مناسبات دينية وأعياد ورمضان: حملات رحيمية «لا تترك دواؤك ينتظر» + عروض ولاء (بمراجعة ثقافية/ناطق).</li>
+        <li>حفل إطلاق بحضور الصيادلة والشركاء + تغطية إعلامية محلية (PR).</li>
+        <li>دعوة الصحافة/المؤثّرين لتجربة أمرٍ حقيقي — سردٌ يقود محتوى أصيلاً.</li>
+      </div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 25 — آليات النمو -->
+  <section class="slide" data-title="آليات النمو والتشغيل">
+    <div class="kicker">Growth Mechanics</div>
+    <div class="title">آليات النمو والتشغيل</div>
+    <div class="rule"></div>
+    <table class="tbl">
+      <tr><th style="width:30%">الآلية</th><th style="width:26%">الأثر</th><th>ملاحظة تشغيلية</th></tr>
+      <tr><td class="r1">إحالة + ولاء</td><td class="r2">خفض CAC وتكرار</td><td>الدواء شأن عائلي — قياس الأثر بلا إفراط في الخصم</td></tr>
+      <tr><td class="r1">واتساب / تيليغرام</td><td class="r2">تقليل الاحتكاك + خدمة iOS</td><td>إلغاء اشتراك وخصوصية — فصل الخدمة عن التسويق</td></tr>
+      <tr><td class="r1">B2B ميداني (Outbound)</td><td class="r2">ملء العرض</td><td>فريق + Demo + CSM — ابدأ بالصيدليات ذات المرجعية</td></tr>
+      <tr><td class="r1">توظيف سائقين</td><td class="r2">إشباع الطلب</td><td>برامج إحالة + شفافية الأرباح</td></tr>
+      <tr><td class="r1">شراكات عيادات/أطباء</td><td class="r2">إحالة عالية الثقة</td><td>خصوصية المريض — اتفاقيات وصلاحيات</td></tr>
+      <tr><td class="r1">PR / المؤثّرون</td><td class="r2">بناء الثقة</td><td>إفصاح + مراجعة ادّعاءات</td></tr>
+      <tr><td class="r1">ASO / SEO</td><td class="r2">نموّ غير مكلّف</td><td>تحسين المتجر والمحتوى العربي</td></tr>
+    </table>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 26 — KPIs -->
+  <section class="slide" data-title="مؤشّرات الأداء KPIs">
+    <div class="kicker">Measurement</div>
+    <div class="title">مؤشّرات الأداء (KPIs)</div>
+    <div class="rule"></div>
+    <div class="banner dark"><span class="lead">المؤشّر الأساسي (North-Star): </span>عدد الأوامر المكتملة المدفوعة / أسبوع — مؤشّر النجاح الأصلي، لا عدد التنزيلات.</div>
+    <div style="height:16px"></div>
+    <div class="grid g3" style="grid-auto-rows:1fr">
+      <div class="mini"><h4>الاستحواذ</h4><p>تنزيل، تثبيت، CAC</p></div>
+      <div class="mini"><h4>رحلة الأمر</h4><p>بحث/رفع، عروض، تأكيد، تسليم، دفع</p></div>
+      <div class="mini"><h4>جودة السوق</h4><p>نسبة أوامر حصلت على عرض، ردّ الصيدلية، تسليم ناجح</p></div>
+      <div class="mini"><h4>الاحتفاظ</h4><p>تكرار الأمر خلال ٣٠ يوماً، أوامر/عميل</p></div>
+      <div class="mini"><h4>الاقتصاد</h4><p>AOV، تحويل السلة، LTV/CAC، تراجع COD</p></div>
+      <div class="mini"><h4>العرض</h4><p>صيدليات نشطة، سائقون، زمن/تكلفة التوصيل</p></div>
+      <div class="mini"><h4>التجربة</h4><p>تقييم المتجر، NPS، معدل الشكاوى</p></div>
+      <div class="mini" style="background:var(--dark)"><h4 style="color:var(--accent)">لوحة قيادة أسبوعية</h4><p style="color:var(--ice)">كل مؤشّر أسبوعياً — القرار يتبع البيانات.</p></div>
+      <div class="mini" style="background:var(--primary)"><h4 style="color:#fff">بوابات الصرف</h4><p style="color:var(--ice)">لا توسيع قبل CAC ≤ LTV وتوفّر ≥ الهدف.</p></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 27 — 7Ps -->
+  <section class="slide" data-title="مزيج التسويق 7Ps">
+    <div class="kicker">Marketing Mix</div>
+    <div class="title">مزيج التسويق (7Ps) — خلاصة</div>
+    <div class="rule"></div>
+    <table class="tbl">
+      <tr><th style="width:22%">العنصر</th><th>القرار</th></tr>
+      <tr><td class="r1">المنتج</td><td>التوفّر الفعلي على الواجهة، رفع الوصفة بلا احتكاك، إثبات الثقة، إرشاد صيدلاني بحدود تنظيمية</td></tr>
+      <tr><td class="r1">السعر</td><td>بلا رسوم خفية؛ عمولة واضحة للصيدلية؛ «عرض حارس» مقيّد</td></tr>
+      <tr><td class="r1">التوزيع</td><td>نطاق مكثّف أولاً؛ تطبيق أندرويد/آيفون + واتساب + قنوات غير متجَر</td></tr>
+      <tr><td class="r1">الترويج</td><td>ثقة + تعليم + إحالة + محتوى + شراكات — بلا حملات مدفوعة واسعة في البداية</td></tr>
+      <tr><td class="r1">الأشخاص</td><td>التسليم = الوجه؛ تدريب السائقين على المهنيّة والسرّيّة وتقييمهم</td></tr>
+      <tr><td class="r1">العمليات</td><td>سلاسة من الوصفة إلى الباب؛ التحقق النقدي؛ إدارة الغياب/تراجع الزبون</td></tr>
+      <tr><td class="r1">الإثبات المادي</td><td>شارة التوثيق، الأزياء الموحّدة، رموز QR، هُوية عراقية محبوبة</td></tr>
+    </table>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 28 — خارطة 12 شهراً -->
+  <section class="slide" data-title="خارطة الطريق 12 شهراً">
+    <div class="kicker">Roadmap</div>
+    <div class="title">خارطة الطريق — 12 شهراً</div>
+    <div class="rule"></div>
+    <div class="grid g3" style="flex:1">
+      <div class="phase"><div class="ph-hd"><h3>المرحلة ١ — الإثبات</h3><span>0–3 أشهر</span></div><div class="ph-bd">
+        <li>سيولة نطاقٍ واحد (بغداد)</li><li>قياس كامل + مؤشّر أصلي</li><li>محتوى ثقة + إحالة</li>
+      </div></div>
+      <div class="phase"><div class="ph-hd" style="background:var(--accent); color:var(--dark)"><h3 style="color:var(--dark)">المرحلة ٢ — النمو</h3><span style="color:var(--dark)">3–9 أشهر</span></div><div class="ph-bd">
+        <li style="padding-right:18px">توسّع جغرافي محوّلي</li><li>تصعيد TikTok/Instagram + ASO</li><li>إطلاق iOS + مضاعفة العرض</li>
+      </div></div>
+      <div class="phase"><div class="ph-hd" style="background:var(--primary-dk)"><h3>المرحلة ٣ — التوسّع</h3><span>9–18 شهراً</span></div><div class="ph-bd">
+        <li>مدن جديدة: البصرة، أربيل، الموصل</li><li>برنامج ولاء + شراكات عيادات/مستشفيات</li><li>ربحية الوحدة (Unit Economics)</li>
+      </div></div>
+    </div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 29 — الميزانية -->
+  <section class="slide" data-title="الميزانية — سيناريوهان">
+    <div class="kicker">Budget • فرضيات تخطيطية</div>
+    <div class="title">الميزانية — سيناريوهات تقريبية</div>
+    <div class="rule"></div>
+    <div class="grid g2" style="flex:1">
+      <div style="display:flex; flex-direction:column; gap:14px; justify-content:center">
+        <div style="font-weight:800; color:var(--dark); font-size:17px">توزيع الإنفاق</div>
+        <div class="bar-row"><div class="lab"><span>إعلانات أداء (ميتا/تيك توك/إنستا)</span><span>35%</span></div><div class="track"><div class="fill gold" style="width:100%"></div></div></div>
+        <div class="bar-row"><div class="lab"><span>محتوى + بصرية</span><span>20%</span></div><div class="track"><div class="fill" style="width:57%"></div></div></div>
+        <div class="bar-row"><div class="lab"><span>تحفيز (أول أمر/إحالة/ولاء)</span><span>15%</span></div><div class="track"><div class="fill" style="width:43%"></div></div></div>
+        <div class="bar-row"><div class="lab"><span>فريق B2B ميداني + عرض</span><span>15%</span></div><div class="track"><div class="fill" style="width:43%"></div></div></div>
+        <div class="bar-row"><div class="lab"><span>توظيف سائقين + تحفيز</span><span>10%</span></div><div class="track"><div class="fill" style="width:29%"></div></div></div>
+        <div class="bar-row"><div class="lab"><span>أدوات/قياس/تسويق رقمي</span><span>5%</span></div><div class="track"><div class="fill" style="width:14%"></div></div></div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px">
+        <div class="card"><div class="hd">سيناريو بوتستراب (ميزانية محدودة)</div><div class="bd"><div>إحالة + واتساب + محتوى + ASO + شراكات — بهدف الإثبات فقط؛ مدفوعٌ محدود جداً.</div></div></div>
+        <div class="card"><div class="hd teal">سيناريو النمو</div><div class="bd teal"><div>تصعيد TikTok/Instagram + ظهور iOS + شراكات عيادات + توسّع محوّلي بعد تحقيق بوابات المرحلة.</div></div></div>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="strip"><span class="lead">القاعدة الذهبية: </span>لا تتجاوز الإنفاق المدفوع قبل أن يتحقّق CAC ≤ LTV ونِسبة التوفّر ≥ الهدف — الإنفاق يتبع الأداء لا العكس.</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 30 — المخاطر -->
+  <section class="slide" data-title="المخاطر والامتثال">
+    <div class="kicker gold">Governance</div>
+    <div class="title">إدارة المخاطر والامتثال</div>
+    <div class="rule gold"></div>
+    <div class="grid g3" style="flex:1">
+      <div class="risk"><h4>ازدحام جغرافي (سيولة ضعيفة)</h4><p>الكثافة أولاً؛ رصد Fill Rate باستمرار.</p></div>
+      <div class="risk"><h4>قانوني / تنظيمي (أدوية)</h4><p>استشارة قانونية وصيدلانية؛ توثيق؛ بلا ادّعاءات.</p></div>
+      <div class="risk"><h4>الادّعاءات الصحية / النصائح</h4><p>مراجعة قبل النشر؛ منع الجرعات والاستبدالات.</p></div>
+      <div class="risk"><h4>الخصوصية والوصفات</h4><p>تشفير، تقليل البيانات، سياسة، موافقة، مسؤول حماية.</p></div>
+      <div class="risk"><h4>جودة التسليم / تخلّف COD</h4><p>رمز استلام، توثيق، مكافأة سائق، إدارة الغياب.</p></div>
+      <div class="risk"><h4>التبنّي الرقمي المنخفض</h4><p>تعليم + ثقة + إتاحة الأمر عبر واتساب.</p></div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="strip teal"><span class="lead">بوابات الإطلاق: </span>تتبّع كامل • توفّرٌ فعلي في النطاق • مراجعة صيدلانية/قانونية/ناطق • CAC ≤ LTV قبل أي حملة واسعة</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+  <!-- 31 — الخلاصة -->
+  <section class="slide dark closing" data-title="الخلاصة — نبدأ من أول ٣٠ يوماً">
+    <h1>المعركة معركة ثقة،<br>لا معركة أسعار.</h1>
+    <div class="divider" style="width:140px;height:7px;background:var(--accent);border-radius:4px;margin-top:22px"></div>
+    <p class="lead2">قِس أولاً، ثم اكسب السيولة في نطاقٍ واحد، ثم قدّم نفسك «القناة القانونية المعتمدة» التي تُنقذ العراقي من فوضى الصفحات غير الموثوقة — وابنِ محرّك نموّ مستداماً: إحالة + واتساب + محتوى + ASO + شراكات.</p>
+    <div class="cta"><span class="a">نبدأ من أول ٣٠ يوماً: </span>قياس → سيولة → ثقة → نموّ</div>
+    <div class="brandline"><span class="a">صِـلَة دوائي •</span> دواؤك… يصلك من صيدلية مرخّصة قريبة</div>
+    <div class="footer"><span>صِلَة دوائي — الاستراتيجية التسويقية الشاملة | v2</span></div>
+  </section>
+
+</div>
+
+<div id="hud">
+  <button id="btn-prev" title="السابقة (→)">→ سابقة</button>
+  <div id="counter">1 / 31</div>
+  <button id="btn-next" title="التالية (←)">التالية ←</button>
+  <button id="btn-index" title="فهرس الشرائح (G)">☰ الفهرس</button>
+  <button id="btn-full" title="ملء الشاشة (F)">⛶</button>
+</div>
+<div id="hint">←/→ تنقّل • Space للتالي • G فهرس • F ملء الشاشة<br>أو Ctrl+P للطباعة كـ PDF</div>
+
+<div id="overlay">
+  <h2>فهرس الشرائح — اختر شريحة</h2>
+  <div class="gridix" id="ix-grid"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var N = slides.length;
+  var cur = 0;
+  var stage = document.getElementById('stage');
+  var bar = document.getElementById('progress-bar');
+  var counter = document.getElementById('counter');
+  var overlay = document.getElementById('overlay');
+  var grid = document.getElementById('ix-grid');
+
+  // فهرس الشرائح
+  slides.forEach(function(s, i){
+    var d = document.createElement('div');
+    d.className = 'ix';
+    d.innerHTML = '<div class="no">' + (i+1) + ' / ' + N + '</div><div class="tt">' + (s.dataset.title || '') + '</div>';
+    d.addEventListener('click', function(){ go(i); closeOverlay(); });
+    grid.appendChild(d);
+  });
+
+  function fit(){
+    var s = Math.min(window.innerWidth / 1280, window.innerHeight / 720) * 0.94;
+    stage.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', fit);
+
+  function go(n){
+    n = Math.max(0, Math.min(N - 1, n));
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    bar.style.width = ((cur + 1) / N * 100) + '%';
+    counter.textContent = (cur + 1) + ' / ' + N;
+    try { history.replaceState(null, '', '#/' + (cur + 1)); } catch(e){ location.hash = cur + 1; }
+  }
+  function next(){ if (cur < N - 1) go(cur + 1); }
+  function prev(){ if (cur > 0) go(cur - 1); }
+  function openOverlay(){ overlay.classList.add('open'); }
+  function closeOverlay(){ overlay.classList.remove('open'); }
+  function toggleFull(){
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+  }
+
+  document.getElementById('btn-next').addEventListener('click', next);
+  document.getElementById('btn-prev').addEventListener('click', prev);
+  document.getElementById('btn-index').addEventListener('click', function(){ overlay.classList.toggle('open'); });
+  document.getElementById('btn-full').addEventListener('click', toggleFull);
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeOverlay(); });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){ closeOverlay(); return; }
+    if (overlay.classList.contains('open') && e.key !== 'Escape') return;
+    switch (e.key) {
+      case 'ArrowLeft': case ' ': case 'PageDown': case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowRight': case 'PageUp': case 'ArrowUp': e.preventDefault(); prev(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(N - 1); break;
+      case 'f': case 'F': case 'ش': case 'ض': toggleFull(); break;
+      case 'g': case 'G': case 'ى': openOverlay(); break;
+    }
+  });
+
+  // لمس / سحب
+  var sx = null;
+  stage.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    if (sx === null) return;
+    var dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 48) { if (dx < 0) next(); else prev(); }
+    sx = null;
+  }, {passive:true});
+
+  // عمق رابط الشريحة
+  var m = (location.hash || '').match(/\/?(\d+)/);
+  if (m && m[1]) { var n = parseInt(m[1], 10); if (n >= 1 && n <= N) { cur = -1; go(n - 1); } }
+
+  fit();
+  go(cur < 0 ? 0 : cur);
+})();
+</script>
+</body>
+</html>
